@@ -1,4 +1,4 @@
-package com.mashaoting.guigujinrong.home.fragment;
+package com.mashaoting.guigujinrong.more.fragment;
 
 import android.graphics.Color;
 import android.util.Log;
@@ -10,12 +10,12 @@ import com.mashaoting.guigujinrong.base.BaseFragment;
 
 /**
  * Created by 麻少亭 on 2017/3/10.
- * 
- *                   我要投资
+ *
+ *                   更多
  */
 
-public class InvestFragment extends BaseFragment {
-    
+public class MoreFragment extends BaseFragment {
+
     TextView textView ;
     @Override
     public View initView() {
@@ -28,8 +28,8 @@ public class InvestFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        Log.e("TAG", "HomeFragment initData()"+"我要投资");
-        textView.setText("我要投资");
+        Log.e("TAG", "HomeFragment initData()"+"更多");
+        textView.setText("更多");
 
     }
 }

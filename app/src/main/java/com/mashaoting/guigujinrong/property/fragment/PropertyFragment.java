@@ -1,4 +1,4 @@
-package com.mashaoting.guigujinrong.home.fragment;
+package com.mashaoting.guigujinrong.property.fragment;
 
 import android.graphics.Color;
 import android.util.Log;

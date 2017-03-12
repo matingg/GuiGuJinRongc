@@ -5,22 +5,32 @@
     android:id="@+id/activity_welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/start_background"
     tools:context="com.mashaoting.guigujinrong.activity.WelcomeActivity">
 
     <TextView
         android:id="@+id/tv_welcom"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:text="0"
-        android:textSize="34sp"
         android:textColor="#44f"
+        android:textSize="34sp"
         />
+
     <ImageView
         android:id="@+id/iv_welcome"
-    
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
+
+
+
+
+
+
+
+
+
 
 </RelativeLayout>

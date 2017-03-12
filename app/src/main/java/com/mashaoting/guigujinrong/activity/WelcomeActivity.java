@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
     @InjectView(R.id.iv_welcome)
     ImageView ivWelcome;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +36,12 @@ public class WelcomeActivity extends AppCompatActivity {
 
     }
 
-    CountDownTimer countDownTimer = new CountDownTimer(3000, 1000) {
+    CountDownTimer countDownTimer = new CountDownTimer(4000, 1000) {
         @Override
         public void onTick(long millisUntilFinished) {
-            tvWelcom.setText("倒计时" + (int) millisUntilFinished);
+            int ad = (int) (millisUntilFinished / 1000);
+
+            tvWelcom.setText("倒计时" + ad);
 
         }
 

@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 import com.mashaoting.guigujinrong.base.BaseFragment;
 import com.mashaoting.guigujinrong.home.fragment.HomeFragment;
-import com.mashaoting.guigujinrong.home.fragment.InvestFragment;
-import com.mashaoting.guigujinrong.home.fragment.MoreFragment;
-import com.mashaoting.guigujinrong.home.fragment.PropertyFragment;
+import com.mashaoting.guigujinrong.invest.fragment.InvestFragment;
+import com.mashaoting.guigujinrong.more.fragment.MoreFragment;
+import com.mashaoting.guigujinrong.property.fragment.PropertyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
