@@ -1,11 +1,5 @@
 package com.mashaoting.guigujinrong.property.fragment;
 
-import android.graphics.Color;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.TextView;
-
 import com.mashaoting.guigujinrong.base.BaseFragment;
 
 /**
@@ -16,20 +10,19 @@ import com.mashaoting.guigujinrong.base.BaseFragment;
 
 public class PropertyFragment extends BaseFragment {
 
-    TextView textView ;
+
     @Override
-    public View initView() {
-        textView = new TextView(context);
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(45);
-        textView.setTextColor(Color.BLACK);
-        return textView;
+    protected void initData(String json) {
+
     }
 
     @Override
-    public void initData() {
-        Log.e("TAG", "HomeFragment initData()"+"我的资产");
-        textView.setText("我的资产");
+    protected int getLayoutid() {
+        return 0;
+    }
 
+    @Override
+    protected String getChildUrl() {
+        return null;
     }
 }

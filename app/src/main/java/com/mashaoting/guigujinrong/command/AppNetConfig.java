@@ -7,7 +7,7 @@ package com.mashaoting.guigujinrong.command;
 public class AppNetConfig {
     public static final String HOST ="47.93.118.241";//提供ip地址
 
-    /*
+    /*http://47.93.118.241:8081/P2PInvest/index
     *
     * IP地址 和 域名的区别
     *

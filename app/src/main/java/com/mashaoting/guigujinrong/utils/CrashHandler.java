@@ -1,5 +1,6 @@
 package com.mashaoting.guigujinrong.utils;
 
+import android.os.Build;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread t, Throwable e) {
 
-        Log.i("uncaughtException", "uncaughtException: ");
+        Log.i("uncaughtException", "77777777777777777777777777777777777777777777777uncaughtException: ");
 
         new Thread() {
             @Override
@@ -40,7 +41,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 * 一个线程只有一个looper
                 * */
                 Looper.prepare();
-                Toast.makeText(UIUtils.getContext(), "aaa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UIUtils.getContext(), "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", Toast.LENGTH_SHORT).show();
                 Looper.loop();
             }
         }.start();
@@ -55,6 +56,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     }
 
     private void collection(Throwable e) {
+
+        Log.e("TAG", "CrashHandler coll////////////********************ection()"+ Build.BOARD);
 
         //把崩溃信息返回给服务器
         /*

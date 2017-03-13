@@ -1,6 +1,5 @@
 package com.mashaoting.guigujinrong.base;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,33 +7,57 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mashaoting.guigujinrong.ui.LoadingPager;
+
+import butterknife.ButterKnife;
+
 /**
  * Created by 麻少亭 on 2017/3/10.
  */
 
 public abstract class BaseFragment extends Fragment {
 
-    public Context context ;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        context = getActivity();
-    }
+   private LoadingPager loadingPager ;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return initView();
+        loadingPager = new LoadingPager(getActivity()) {
+            @Override
+            protected void onSuccess(ResultState resultState, View sucessView) {
+                ButterKnife.inject(BaseFragment.this,sucessView);
+                initData(resultState.getJson());
+            }
+
+            @Override
+            protected String getUrl() {
+                return getChildUrl();
+            }
+
+            @Override
+            public int getViewId() {
+                return getLayoutid();
+            }
+        } ;
+        return loadingPager ;
     }
 
-    public abstract View initView() ;
+    protected abstract void initData(String json);
+
+    protected abstract int getLayoutid();
+
+    protected abstract String getChildUrl();
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initData();
+
+        loadingPager.loadData();
     }
 
-    public abstract void initData();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.reset(this);
+    }
 }

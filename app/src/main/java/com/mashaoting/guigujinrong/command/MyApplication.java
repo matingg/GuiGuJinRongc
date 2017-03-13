@@ -1,4 +1,4 @@
-package com.mashaoting.guigujinrong.utils;
+package com.mashaoting.guigujinrong.command;
 
 import android.app.Application;
 import android.content.Context;
@@ -19,7 +19,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = this;
-        CrashHandler.getInstance().init();
+        threadid = android.os.Process.myPid();
+        handler = new Handler();
+
+        //初始化  崩溃信息管理者
+//        CrashHandler.getInstance().init();
+
     }
 
     /*
