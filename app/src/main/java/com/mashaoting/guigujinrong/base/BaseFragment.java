@@ -1,5 +1,6 @@
 package com.mashaoting.guigujinrong.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,16 +18,18 @@ import butterknife.ButterKnife;
 
 public abstract class BaseFragment extends Fragment {
 
-   private LoadingPager loadingPager ;
+    private LoadingPager loadingPager;
+    public Context context;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         loadingPager = new LoadingPager(getActivity()) {
             @Override
             protected void onSuccess(ResultState resultState, View sucessView) {
-                ButterKnife.inject(BaseFragment.this,sucessView);
+                ButterKnife.inject(BaseFragment.this, sucessView);
                 initData(resultState.getJson());
+                context = getActivity();
             }
 
             @Override
@@ -38,8 +41,8 @@ public abstract class BaseFragment extends Fragment {
             public int getViewId() {
                 return getLayoutid();
             }
-        } ;
-        return loadingPager ;
+        };
+        return loadingPager;
     }
 
     protected abstract void initData(String json);

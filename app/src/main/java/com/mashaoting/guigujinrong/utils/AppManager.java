@@ -2,6 +2,8 @@ package com.mashaoting.guigujinrong.utils;
 
 import android.app.Activity;
 
+import com.mashaoting.guigujinrong.activity.WelcomeActivity;
+
 import java.util.Stack;
 
 /**
@@ -70,4 +72,11 @@ public class AppManager {
         return stack.size();
     }
 
+    public void removeCurrentActivity(WelcomeActivity welcomeActivity) {
+        for (int i = stack.size() - 1; i >= 0; i--) {
+            Activity currentActivity = stack.get(i);
+
+            stack.remove(currentActivity);
+        }
+    }
 }

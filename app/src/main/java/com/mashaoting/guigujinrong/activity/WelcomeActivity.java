@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.mashaoting.guigujinrong.MainActivity;
 import com.mashaoting.guigujinrong.R;
+import com.mashaoting.guigujinrong.utils.AppManager;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -55,4 +56,9 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }.start();
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppManager.getInstance().removeCurrentActivity(this);
+    }
 }

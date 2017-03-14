@@ -3,6 +3,7 @@ package com.mashaoting.guigujinrong;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         initFragment();   //初始化Fragment
 
         initListener();   //初始化 RadioGroup 监听事件
+
+        Log.e("TAG", "MainActivity onCreate()"+getPackageName()+"---"+getAssets());
 
         mainRg.check(R.id.mai_rb_home); //默认选择哪个Fragment 写在  initListener();   后面
     }

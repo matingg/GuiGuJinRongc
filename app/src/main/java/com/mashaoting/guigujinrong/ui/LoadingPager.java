@@ -31,47 +31,48 @@ public abstract class LoadingPager extends FrameLayout {
     private int STATE_SUCCESS = 3; //加载成功
     private int STATE_EMPTY = 4; //空
 
-    private int current_state = STATE_LOADING;
+    private int current_state = STATE_LOADING; // 当前状态默认设置为 加载状态
 
 
 
     public LoadingPager(Context context) {
         super(context);
         this.context = context ;
-        init();
+        init(); //初始化 加载布局
     }
 
 
     public LoadingPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context ;
-        init();
+        init();//初始化 加载布局
     }
 
 
-    private void init() {
+    private void init() {//加载布局
+
         params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             
-        //加载布局
-        if(loadingView == null) {
+
+        if(loadingView == null) {  // 正在加载的布局
             loadingView = View.inflate(context , R.layout.page_loading , null);
-            this.addView(loadingView);
+            this.addView(loadingView);  //this代表当前类 帧布局的子类
         }
-        if(errorView == null) {
+        if(errorView == null) {  // 出现错误的布局
             errorView = View.inflate(context ,R.layout.page_error , null);
             this.addView(errorView);
         }
-        if(emptyView == null) {
+        if(emptyView == null) {  // q请求数据是空的布局
             emptyView = View.inflate(context,R.layout.page_empty , null);
             this.addView(emptyView);
         }
-        //展示布局
-        showSafeView();
+
+        showSafeView();//展示布局
 
     }
 
-    private void showSafeView() {
-        //展示view保证在主线程
+    private void showSafeView() {//展示view保证在主线程
+
         UIUtils.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -101,33 +102,39 @@ public abstract class LoadingPager extends FrameLayout {
     }
 
 
-    //根据不同的网络状态加载相应的页面
-    public void loadData(){
-        //加载wangl
-        AsyncHttpClient httpClient = new AsyncHttpClient();
+
+    public void loadData(){   //根据不同的网络状态加载相应的页面
+
+        AsyncHttpClient httpClient = new AsyncHttpClient();//加载数据 联网请求
 
         String url = getUrl();
+
+        if(TextUtils.isEmpty(url)) {
+            resultState = resultState.SUCCESS ;
+            loadImage();
+            return;
+        }
 
         httpClient.post(url , new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String content) {
                 super.onSuccess(content);
-                if(TextUtils.isEmpty(content)) {
+                if(TextUtils.isEmpty(content)) { // 如果请求成功  数据为空
                     resultState = resultState.EMPTY ;
                     resultState.setJson("");
-                }else{
+                }else{  // 如果请求成功  数据不为空
                     resultState = resultState.SUCCESS ;
                     resultState.setJson(content);
                 }
 
-                loadImage();
+                loadImage();   // 根据网络连接状态 给当前状态赋值
 
             }
 
-            @Override
+            @Override    //   当请求数据失败时
             public void onFailure(Throwable error, String content) {
                 super.onFailure(error, content);
-                resultState = ResultState.ERROR;
+                resultState = ResultState.ERROR;  // 枚举类
                 resultState.setJson(content);
                 loadImage();
                 
@@ -136,7 +143,8 @@ public abstract class LoadingPager extends FrameLayout {
         });
     }
 
-    private void loadImage() {
+    private void loadImage() {   // 根据网络连接状态 给当前状态赋值
+
         switch (resultState){
             case ERROR:
                 current_state = STATE_ERROR; //根据枚举值来赋值相应的状态
@@ -149,23 +157,32 @@ public abstract class LoadingPager extends FrameLayout {
                 break;
         }
 
-        showSafeView();
+        showSafeView();  //  状态发生改变 重新展示布局
+
         if (current_state == STATE_SUCCESS){
-            //把数据传过去
-            onSuccess(resultState,sucessView);
+
+            onSuccess(resultState,sucessView); //把数据传过去
         }
     }
 
+    protected abstract String getUrl();
+
+    public abstract int getViewId() ;
+
     protected abstract void onSuccess(ResultState resultState, View sucessView);
+
     public enum ResultState{
-        //相当于是三个ResultState对象
-        ERROR(2),SUCCESS(3),EMPTY(4);
+
+        ERROR(2),SUCCESS(3),EMPTY(4); //相当于是三个ResultState对象
+
         private int state;
-        ResultState(int state){
+        private String json;
+
+        ResultState(int state){  //ResultState构造器
             this.state = state;
         }
 
-        private String json;
+
         public void setJson(String json){
             this.json = json;
         }
@@ -176,9 +193,6 @@ public abstract class LoadingPager extends FrameLayout {
 
     }
 
-    protected abstract String getUrl();
-
-    public abstract int getViewId() ;
 
 
 }

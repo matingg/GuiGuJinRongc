@@ -3,11 +3,13 @@ package com.mashaoting.guigujinrong.home.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.mashaoting.guigujinrong.R;
@@ -18,6 +20,7 @@ import com.mashaoting.guigujinrong.ui.MyProgress;
 import com.mashaoting.guigujinrong.utils.ThreadPool;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -25,6 +28,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by 麻少亭 on 2017/3/10.
@@ -50,19 +55,26 @@ public class HomeFragment extends BaseFragment {
     @InjectView(R.id.home_progress)
     MyProgress homeProgress;
 
+
+
     @Override
     protected void initData(String json) {
         HomeBean homeBean = JSON.parseObject(json, HomeBean.class);
-        //Log.i("http", "success: "+homeBean.getImageArr().size());
+
         tvHomeYearrate.setText(homeBean.getProInfo().getYearRate() + "%");
+
         tvHomeProduct.setText(homeBean.getProInfo().getName());
-        //注意：展示UI一定要判断是不是主线程
+
         initProgress(homeBean.getProInfo());
+
         initBanner(homeBean);
     }
 
     @Override
     public int getLayoutid() {
+        Log.e("TAG", "HomeFragment getLayoutid()");
+        Log.d(TAG, "getLayoutid: ");
+        Log.d(TAG, "getLayoutid: ---------");
         return R.layout.fragment_home;
     }
 
@@ -72,10 +84,11 @@ public class HomeFragment extends BaseFragment {
     }
 
     public void initListener() {
-        //初始化title
-        baseTitle.setText("首页");
-        baseBack.setVisibility(View.INVISIBLE);
-        baseSetting.setVisibility(View.INVISIBLE);
+
+        baseTitle.setText("首页"); //初始化title
+        baseBack.setVisibility(View.INVISIBLE);  // 隐藏 返回按钮
+        baseSetting.setVisibility(View.INVISIBLE); //隐藏 设置按钮
+
     }
 
     @Override
@@ -110,8 +123,19 @@ public class HomeFragment extends BaseFragment {
         }
         //设置图片集合
         banner.setImages(urls);
+        List<String>asd = new ArrayList<>();
+        asd.add("argr");
+        asd.add("rbtrb");
+        asd.add("tt6t6");
+        banner.setBannerTitles(asd);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Toast.makeText(context, "position=="+ position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public class GlideImageLoader extends ImageLoader {
