@@ -77,7 +77,7 @@ public class InvestFragment extends BaseFragment {
 
     private void initViewPager() {
 
-        InvesAdapter adapter = new InvesAdapter(getFragmentManager(), fragmentList);
+        InvesAdapter adapter = new InvesAdapter(getChildFragmentManager(), fragmentList);
         vpInvest.setAdapter(adapter);// 给viewpager 设置适配器
         vpInvest.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
